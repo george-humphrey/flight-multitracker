@@ -2,31 +2,42 @@ import React from 'react';
 
 const Flight = (props) => {
   return (
-    <li className='flight' id={`flight${props.number}`}>
+    <div className='flight' id={`flight${props.number}`}>
+      <button className='delete'>X</button>
       <div className='overviewSection'>
-        <div className='flightName'>George</div>
-        <div className='flightCode'>DL0291</div>
-        <div className='airlineLogo'>DL</div>
+        <div className='flightName'>{props.flight.flightName}</div>
+        <div className='flightCode'>{props.flight.flightCode}</div>
+        <div className='airlineLogo'></div>
       </div>
       <div className='statusSection'>
-        <div className='status'>On Time</div>
-        <div className='statusMessage'></div>
+        <div className='status'>{props.flight.status}</div>
       </div>
       <div className='departureSection'>
         <div className='departureCity'>
-          <div className='cityCode'>LGA</div>
-          <div className='cityName'>LaGuardia International</div>
+          <div className='cityCode departureCode'>
+            {props.flight.departure.airportCode}
+          </div>
+          <div className='cityName departureCity'>
+            {props.flight.departure.airportName}
+          </div>
         </div>
-        <div className='estimatedDeparture'>10:33 AM</div>
+        <div className='estimatedDeparture'>
+          {props.flight.departure.estimated}
+        </div>
       </div>
+      <div className='flightArrow'>{'->'}</div>
       <div className='arrivalSection'>
         <div className='arrivalCity'>
-          <div className='cityCode'>MSP</div>
-          <div className='cityName'>Minneapolis-St. Paul International</div>
+          <div className='cityCode arrivalCode'>
+            {props.flight.arrival.airportCode}
+          </div>
+          <div className='cityName arrivalCity'>
+            {props.flight.departure.airportName}
+          </div>
         </div>
-        <div className='estimatedArrival'>2:19 PM</div>
+        <div className='estimatedArrival'>{props.flight.arrival.estimated}</div>
       </div>
-    </li>
+    </div>
   );
 };
 

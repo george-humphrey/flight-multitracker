@@ -2,13 +2,28 @@ import React from 'react';
 import Flight from './Flight.jsx';
 
 const Flights = (props) => {
-  return (
-    <div id='flights'>
-      <ul id='flightsList'>
-        <Flight number={1} />
-      </ul>
-    </div>
-  );
+  if (props.flights.length < 5) {
+    return (
+      <div id='flights'>
+        <div id='flightsList'>
+          {props.flights.map((flight, index) => {
+            return <Flight listNumber={index} flight={flight} key={index} />;
+          })}
+        </div>
+        <button id='addFlight'>+</button>
+      </div>
+    );
+  } else {
+    return (
+      <div id='flights'>
+        <div id='flightsList'>
+          {props.flights.map((flight, index) => {
+            return <Flight listNumber={index} flight={flight} key={index} />;
+          })}
+        </div>
+      </div>
+    );
+  }
 };
 
 export default Flights;
