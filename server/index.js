@@ -10,7 +10,3 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.listen(port, () => {
   console.log(`listening on port ${port}`);
 });
-
-app.get('/getFlight', (req, res) => {
-  //make api call
-});

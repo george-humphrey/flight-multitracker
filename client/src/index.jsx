@@ -9,28 +9,13 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      flights: [
-        {
-          flightName: 'George',
-          flightCode: 'DL2350',
-          status: 'On Time',
-          departure: {
-            airportCode: 'LGA',
-            airportName: 'Laguardia International Airport',
-            estimated: '12:23 PM',
-          },
-          arrival: {
-            airportCode: 'MSP',
-            airportName: 'Minneapolis-St. Paul International Airport',
-            estimated: '4:13 PM',
-          },
-        },
-      ],
+      flights: [],
     };
 
     this.addFlight = helpers.addFlight.bind(this);
-    this.removeFlight = helpers.removeFlight.bind(this);
+    this.deleteFlight = helpers.deleteFlight.bind(this);
     this.updateFlightName = helpers.updateFlightName.bind(this);
+    this.setAirportColors = helpers.setAirportColors.bind(this);
   }
 
   componentDidMount() {}
@@ -40,7 +25,12 @@ class App extends React.Component {
       <div id='app'>
         <h1>The Gillianator</h1>
         <h3>A Flight Multi-Tracker</h3>
-        <Flights flights={this.state.flights} />
+        <Flights
+          flights={this.state.flights}
+          addFlight={this.addFlight}
+          deleteFlight={this.deleteFlight}
+          updateFlightName={this.updateFlightName}
+        />
       </div>
     );
   }

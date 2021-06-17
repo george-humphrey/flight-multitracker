@@ -7,10 +7,20 @@ const Flights = (props) => {
       <div id='flights'>
         <div id='flightsList'>
           {props.flights.map((flight, index) => {
-            return <Flight listNumber={index} flight={flight} key={index} />;
+            return (
+              <Flight
+                listNumber={index}
+                flight={flight}
+                updateFlightName={props.updateFlightName}
+                deleteFlight={props.deleteFlight}
+                key={index}
+              />
+            );
           })}
         </div>
-        <button id='addFlight'>+</button>
+        <button id='addFlight' onClick={props.addFlight}>
+          +
+        </button>
       </div>
     );
   } else {
