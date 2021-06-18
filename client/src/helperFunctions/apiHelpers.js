@@ -1,6 +1,6 @@
 import $ from 'jquery';
 
-const API_KEY = require('./API_KEY.js');
+const API_KEY = require('../API_KEY.js');
 
 function findFlight(flight_iata, callback) {
   $.ajax({
@@ -10,7 +10,6 @@ function findFlight(flight_iata, callback) {
       flight_iata,
     },
     success: function (data) {
-      console.log('got flight from api');
       callback(null, data.data[0]);
     },
     error: function (err) {

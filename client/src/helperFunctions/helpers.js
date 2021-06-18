@@ -1,7 +1,8 @@
 import $ from 'jquery';
 
 import api from './apiHelpers.js';
-import API_Key from './API_KEY.js';
+import db from './dbHelpers.js';
+import API_Key from '../API_KEY.js';
 
 function createNewFlight(flight) {
   let newFlight = {
@@ -54,7 +55,6 @@ function setAirportColors(index, depCode, arrCode) {
 
 function addFlight() {
   let code = prompt('Flight Code:');
-  console.log(`add flight ${code}`);
   api.findFlight(code, (err, flight) => {
     if (err) {
       console.log(err);
@@ -65,6 +65,7 @@ function addFlight() {
 
     flights.push(newFlight);
     this.setState({ flights }, () => {
+      db.saveFlights(flights);
       let index = this.state.flights.length - 1;
       let depCode = this.state.flights[index].departure.airportCode;
       let arrCode = this.state.flights[index].arrival.airportCode;
@@ -79,7 +80,8 @@ function deleteFlight(flightIndex) {
   let flights = this.state.flights;
   flights.splice(flightIndex, 1);
   this.setState({ flights }, () => {
-    this.state.flights.forEach((flight, index) => {
+    db.saveFlights(flights);
+    flights.forEach((flight, index) => {
       let depCode = this.state.flights[index].departure.airportCode;
       let arrCode = this.state.flights[index].arrival.airportCode;
       setAirportColors(index, depCode, arrCode);
@@ -91,7 +93,52 @@ function updateFlightName(flightIndex) {
   let newName = prompt('New Name:');
   let flights = this.state.flights;
   flights[flightIndex].flightName = newName;
-  this.setState({ flights });
+  this.setState({ flights }, () => {
+    db.saveFlights(flights);
+  });
+}
+
+function displayFlights(flightList) {
+  console.log('display FlightList');
+  console.log(flightList);
+  flightList.forEach((flight) => {
+    let flightCode = flight.flightCode;
+    let flightName = flight.flightName;
+    api.findFlight(flightCode, (err, flight) => {
+      if (err) {
+        console.log(err);
+      }
+
+      let newFlight = createNewFlight(flight);
+      console.log('flightName:');
+      console.log(flightName);
+      newFlight.flightName = flightName;
+      console.log(newFlight);
+      let flights = this.state.flights;
+
+      flights.push(newFlight);
+      this.setState({ flights }, () => {
+        db.saveFlights(flights);
+        let index = this.state.flights.length - 1;
+        let depCode = this.state.flights[index].departure.airportCode;
+        let arrCode = this.state.flights[index].arrival.airportCode;
+
+        setAirportColors(index, depCode, arrCode);
+      });
+    });
+  });
+}
+
+function loadFlights() {
+  db.getFlights((err, flights) => {
+    if (err) {
+      console.log('error loading flights');
+      console.log(err);
+    } else {
+      console.log(flights);
+      this.displayFlights(flights);
+    }
+  });
 }
 
 module.exports = {
@@ -99,4 +146,6 @@ module.exports = {
   deleteFlight,
   updateFlightName,
   setAirportColors,
+  loadFlights,
+  displayFlights,
 };

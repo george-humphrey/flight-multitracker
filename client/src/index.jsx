@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom';
 import $ from 'jquery';
 
 import Flights from './components/Flights.jsx';
-import helpers from './helpers.js';
+import helpers from './helperFunctions/helpers.js';
+import dbHelpers from './helperFunctions/dbHelpers';
 
 class App extends React.Component {
   constructor(props) {
@@ -16,9 +17,13 @@ class App extends React.Component {
     this.deleteFlight = helpers.deleteFlight.bind(this);
     this.updateFlightName = helpers.updateFlightName.bind(this);
     this.setAirportColors = helpers.setAirportColors.bind(this);
+    this.loadFlights = helpers.loadFlights.bind(this);
+    this.displayFlights = helpers.displayFlights.bind(this);
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    this.loadFlights();
+  }
 
   render() {
     return (
@@ -30,6 +35,7 @@ class App extends React.Component {
           addFlight={this.addFlight}
           deleteFlight={this.deleteFlight}
           updateFlightName={this.updateFlightName}
+          save={this.save}
         />
       </div>
     );

@@ -11,6 +11,7 @@ body {
   border: grey solid 1px;
   height: 160px;
   width: auto;
+  margin-bottom: 10px;
 }
 
 .delete {
