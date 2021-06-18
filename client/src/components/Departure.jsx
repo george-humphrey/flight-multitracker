@@ -18,9 +18,9 @@ const Departure = (props) => {
         </div>
       </div>
       <div
-        className='estimatedDeparture'
-        id={`estimatedDeparture${props.listNumber}`}>
-        {props.estimated}
+        className='time departureTime'
+        id={`departureTime${props.listNumber}`}>
+        {props.time}
       </div>
     </div>
   );

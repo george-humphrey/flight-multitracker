@@ -9,7 +9,7 @@ const AddFlight = (props) => {
           type='text'
           id='formEntry'
           name='formEntry'
-          placeholder='Flight Code'></input>
+          placeholder='Flight Number'></input>
       </form>
       <div id='formStatus'></div>
     </div>

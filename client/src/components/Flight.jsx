@@ -19,14 +19,14 @@ const Flight = (props) => {
       <Status listNumber={props.listNumber} status={props.flight.status} />
       <Departure
         listNumber={props.listNumber}
-        estimated={props.flight.departure.estimated}
+        time={props.flight.departure.time}
         airportName={props.flight.departure.airportName}
         airportCode={props.flight.departure.airportCode}
       />
       <div className='flightArrow'>{'->'}</div>
       <Arrival
         listNumber={props.listNumber}
-        estimated={props.flight.arrival.estimated}
+        time={props.flight.arrival.time}
         airportName={props.flight.arrival.airportName}
         airportCode={props.flight.arrival.airportCode}
       />

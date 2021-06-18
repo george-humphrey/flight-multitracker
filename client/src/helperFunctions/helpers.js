@@ -5,6 +5,15 @@ import db from './dbHelpers.js';
 import API_Key from '../API_KEY.js';
 
 function createNewFlight(flight) {
+  let depTime =
+    flight.departure.actual === null
+      ? flight.departure.estimated
+      : flight.departure.actual;
+  let arrTime =
+    flight.departure.actual === null
+      ? flight.departure.estimated
+      : flight.departure.actual;
+
   let newFlight = {
     flightName: 'New Flight',
     flightCode: flight.flight.iata,
@@ -13,18 +22,23 @@ function createNewFlight(flight) {
     departure: {
       airportCode: flight.departure.iata,
       airportName: flight.departure.airport,
-      estimated: new Date(flight.departure.estimated).toLocaleString('en-US', {
+      time: new Date(depTime).toLocaleString('en-US', {
         timeZone: flight.departure.timezone,
       }),
     },
     arrival: {
       airportCode: flight.arrival.iata,
       airportName: flight.arrival.airport,
-      estimated: new Date(flight.arrival.estimated).toLocaleString('en-US', {
+      time: new Date(arrTime).toLocaleString('en-US', {
         timeZone: flight.arrival.timezone,
       }),
     },
   };
+  console.log(`UTC Departure: ${depTime}`);
+  console.log(`Departure Time Zone: ${newFlight.departure.timezone}`);
+  // is the problem that I'm not getting them in UTC?
+  // try estimated: new Date(flight.departure.estimated).toLocaleString('en-US')
+  // without timeZone
 
   return newFlight;
 }
@@ -53,27 +67,44 @@ function setAirportColors(index, depCode, arrCode) {
   );
 }
 
+function checkUniqueCode(code) {
+  let flights = this.state.flights;
+  flights.forEach((flight) => {
+    if (flight.flightCode === code) {
+      return false;
+    }
+  });
+  return true;
+}
+
 function addFlight() {
   let code = $('#formEntry').value;
-  api.findFlight(code, (err, flight) => {
-    if (err) {
-      console.log(err);
-      $('#formStatus').html("ERROR: Couldn't Add Flight");
-    }
 
-    let newFlight = createNewFlight(flight);
-    let flights = this.state.flights;
+  if (this.checkUniqueCode(code)) {
+    $('#formStatus').html('Flight Already Listed');
+  } else if (code === '') {
+    $('#formStatus').html('Enter Flight Number');
+  } else {
+    api.findFlight(code, (err, flight) => {
+      if (err) {
+        console.log(err);
+        $('#formStatus').html("ERROR: Couldn't Add Flight");
+      }
 
-    flights.push(newFlight);
-    this.setState({ flights }, () => {
-      db.saveFlights(flights);
-      let index = this.state.flights.length - 1;
-      let depCode = this.state.flights[index].departure.airportCode;
-      let arrCode = this.state.flights[index].arrival.airportCode;
+      let newFlight = createNewFlight(flight);
+      let flights = this.state.flights;
 
-      setAirportColors(index, depCode, arrCode);
+      flights.push(newFlight);
+      this.setState({ flights }, () => {
+        db.saveFlights(flights);
+        let index = this.state.flights.length - 1;
+        let depCode = this.state.flights[index].departure.airportCode;
+        let arrCode = this.state.flights[index].arrival.airportCode;
+
+        setAirportColors(index, depCode, arrCode);
+      });
     });
-  });
+  }
 }
 
 function deleteFlight(flightIndex) {
@@ -104,9 +135,6 @@ function displayFlights(flightList) {
     let flightName = flight.flightName;
     api.findFlight(flightCode, (err, flight) => {
       if (err) {
-        console.log(err);
-        console.log('try to set form status');
-        console.log($('#formStatus'));
         $('#formStatus').html("ERROR: Can't Access Flight Information");
       }
 
@@ -148,6 +176,7 @@ module.exports = {
   deleteFlight,
   updateFlightName,
   setAirportColors,
+  checkUniqueCode,
   loadFlights,
   displayFlights,
 };

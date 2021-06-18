@@ -15,10 +15,8 @@ const Arrival = (props) => {
           {props.airportName}
         </div>
       </div>
-      <div
-        className='estimatedArrival'
-        id={`estimatedArrival${props.listNumber}`}>
-        {props.estimated}
+      <div className='time arrivalTime' id={`arrivalTime${props.listNumber}`}>
+        {props.time}
       </div>
     </div>
   );

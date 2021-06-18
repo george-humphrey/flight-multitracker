@@ -4,7 +4,6 @@ import $ from 'jquery';
 
 import Flights from './components/Flights.jsx';
 import helpers from './helperFunctions/helpers.js';
-import dbHelpers from './helperFunctions/dbHelpers';
 
 class App extends React.Component {
   constructor(props) {
@@ -19,6 +18,7 @@ class App extends React.Component {
     this.setAirportColors = helpers.setAirportColors.bind(this);
     this.loadFlights = helpers.loadFlights.bind(this);
     this.displayFlights = helpers.displayFlights.bind(this);
+    this.checkUniqueCode = helpers.checkUniqueCode.bind(this);
   }
 
   componentDidMount() {
