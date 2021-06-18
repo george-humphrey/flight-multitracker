@@ -1,11 +1,12 @@
 import React from 'react';
 import Flight from './Flight.jsx';
+import AddFlight from './AddFlight.jsx';
 
 const Flights = (props) => {
   if (props.flights.length < 5) {
     return (
       <div id='flights'>
-        <div id='flightsList'>
+        <div id='flightList'>
           {props.flights.map((flight, index) => {
             return (
               <Flight
@@ -18,15 +19,13 @@ const Flights = (props) => {
             );
           })}
         </div>
-        <button id='addFlight' onClick={props.addFlight}>
-          +
-        </button>
+        <AddFlight addFlight={props.addFlight} />
       </div>
     );
   } else {
     return (
       <div id='flights'>
-        <div id='flightsList'>
+        <div id='flightList'>
           {props.flights.map((flight, index) => {
             return <Flight listNumber={index} flight={flight} key={index} />;
           })}

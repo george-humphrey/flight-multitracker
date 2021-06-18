@@ -54,10 +54,11 @@ function setAirportColors(index, depCode, arrCode) {
 }
 
 function addFlight() {
-  let code = prompt('Flight Code:');
+  let code = $('#formEntry').value;
   api.findFlight(code, (err, flight) => {
     if (err) {
       console.log(err);
+      $('#formStatus').html("ERROR: Couldn't Add Flight");
     }
 
     let newFlight = createNewFlight(flight);
@@ -104,6 +105,9 @@ function displayFlights(flightList) {
     api.findFlight(flightCode, (err, flight) => {
       if (err) {
         console.log(err);
+        console.log('try to set form status');
+        console.log($('#formStatus'));
+        $('#formStatus').html("ERROR: Can't Access Flight Information");
       }
 
       let newFlight = createNewFlight(flight);

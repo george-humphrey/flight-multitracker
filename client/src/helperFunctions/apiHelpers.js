@@ -15,6 +15,7 @@ function findFlight(flight_iata, callback) {
     error: function (err) {
       console.log('error!');
       console.log(err);
+      callback(err);
     },
   });
 }

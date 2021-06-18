@@ -1,10 +1,34 @@
+html,
 body {
-  background: skyblue;
+  background: skyblue url('./img/clouds.jpeg') no-repeat;
+  background-size: cover;
   font-family: Verdana, sans-serif;
+  margin: 0;
+  height: 100%;
 }
 
-.flights {
+h1 {
+  margin: 0 0 5px 0;
+  text-shadow: 0 0 3px rgba(255, 255, 255, 0.85);
+  color: transparent;
+  text-align: center;
+}
+
+h3 {
+  margin: 0 0 5px 0;
+  text-shadow: 0 0 3px rgba(255, 255, 255, 0.85);
+  color: transparent;
+  text-align: center;
+}
+
+#flightList {
+  margin: 10px 5% 0;
   overflow: auto;
+  max-height: 600px;
+  max-width: 90%;
+  box-shadow: 0 0 40px rgba(255, 255, 255, 0.25),
+    0 0 40px rgba(255, 255, 255, 0.5), 0 0 20px rgba(255, 255, 255, 0.75),
+    0 0 5px rgba(255, 255, 255, 0.9);
 }
 
 .flight {
@@ -12,7 +36,11 @@ body {
   background: white;
   height: 160px;
   width: auto;
-  margin-bottom: 10px;
+  margin: 5px 0 0 0;
+}
+
+#flight0 {
+  margin: 0;
 }
 
 .delete {
@@ -20,6 +48,7 @@ body {
   height: 30px;
   width: 30px;
   padding: 4px;
+  margin: 0;
   font-size: 18px;
   text-align: center;
   float: left;
@@ -118,4 +147,23 @@ body {
   margin: 0;
   text-align: center;
   font-size: 16px;
+}
+
+#flightFormContainer {
+  margin: 10px 10px 0 5%;
+}
+
+#addFlightForm {
+  width: 240px;
+  float: left;
+}
+
+#formStatus {
+  color: red;
+  background-color: rgba(114, 38, 38, 0.666);
+  font-size: 14px;
+  padding: 1px 5px;
+  margin: 3px;
+  float: left;
+  width: max-content;
 }

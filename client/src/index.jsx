@@ -28,7 +28,7 @@ class App extends React.Component {
   render() {
     return (
       <div id='app'>
-        <h1>The Gillianator</h1>
+        <h1>Grandma's Flight Tracker</h1>
         <h3>A Flight Multi-Tracker</h3>
         <Flights
           flights={this.state.flights}
