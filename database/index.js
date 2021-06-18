@@ -26,8 +26,6 @@ let saveFlights = function (data, callback) {
 
   let dropQ = 'TRUNCATE TABLE flight_list';
   let insertQ = `INSERT INTO flight_list (flightName, FlightCode) VALUES ${values}`;
-  console.log('saving flights');
-  console.log(values);
 
   connection.query(dropQ, (err) => {
     if (err) {

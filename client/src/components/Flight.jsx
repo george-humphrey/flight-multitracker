@@ -1,74 +1,35 @@
 import React from 'react';
 
+import Delete from './Delete.jsx';
+import Overview from './Overview.jsx';
+import Status from './Status.jsx';
+import Arrival from './Arrival.jsx';
+import Departure from './Departure.jsx';
+
 const Flight = (props) => {
   return (
     <div className='flight' id={`flight${props.listNumber}`}>
-      <button
-        className='delete'
-        onClick={() => props.deleteFlight(props.listNumber)}>
-        X
-      </button>
-      <div
-        className='overviewSection'
-        id={`overviewSection${props.listNumber}`}>
-        <div
-          className='flightName'
-          onClick={() => props.updateFlightName(props.listNumber)}>
-          {props.flight.flightName}
-        </div>
-        <div className='flightCode' id={`flightCode${props.listNumber}`}>
-          {props.flight.flightCode}
-        </div>
-        <div
-          className='airlineLogo'
-          id={`airlineLogo${props.listNumber}`}></div>
-      </div>
-      <div className='statusSection' id={`statusSection${props.listNumber}`}>
-        <div className='status' id={`status${props.listNumber}`}>
-          {props.flight.status}
-        </div>
-      </div>
-      <div
-        className='departureSection'
-        id={`departureSection${props.listNumber}`}>
-        <div className='departureCity' id={`departureCity${props.listNumber}`}>
-          <div
-            className='cityCode departureCode'
-            id={`departureCode${props.listNumber}`}>
-            {props.flight.departure.airportCode}
-          </div>
-          <div
-            className='cityName departureCityName'
-            id={`departureCityName${props.listNumber}`}>
-            {props.flight.departure.airportName}
-          </div>
-        </div>
-        <div
-          className='estimatedDeparture'
-          id={`estimatedDeparture${props.listNumber}`}>
-          {props.flight.departure.estimated}
-        </div>
-      </div>
+      <Delete listNumber={props.listNumber} deleteFlight={props.deleteFlight} />
+      <Overview
+        listNumber={props.listNumber}
+        updateFlightName={props.updateFlightName}
+        flightName={props.flight.flightName}
+        flightCode={props.flight.flightCode}
+      />
+      <Status listNumber={props.listNumber} status={props.flight.status} />
+      <Departure
+        listNumber={props.listNumber}
+        estimated={props.flight.departure.estimated}
+        airportName={props.flight.departure.airportName}
+        airportCode={props.flight.departure.airportCode}
+      />
       <div className='flightArrow'>{'->'}</div>
-      <div className='arrivalSection' id={`arrivalSection${props.listNumber}`}>
-        <div className='arrivalCity' id={`arrivalCity${props.listNumber}`}>
-          <div
-            className='cityCode arrivalCode'
-            id={`arrivalCode${props.listNumber}`}>
-            {props.flight.arrival.airportCode}
-          </div>
-          <div
-            className='cityName arrivalCityName'
-            id={`arrivalCityName${props.listNumber}`}>
-            {props.flight.arrival.airportName}
-          </div>
-        </div>
-        <div
-          className='estimatedArrival'
-          id={`estimatedArrival${props.listNumber}`}>
-          {props.flight.arrival.estimated}
-        </div>
-      </div>
+      <Arrival
+        listNumber={props.listNumber}
+        estimated={props.flight.arrival.estimated}
+        airportName={props.flight.arrival.airportName}
+        airportCode={props.flight.arrival.airportCode}
+      />
     </div>
   );
 };

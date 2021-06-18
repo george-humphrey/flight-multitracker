@@ -14,7 +14,6 @@ app.listen(port, () => {
 });
 
 app.get('/flights', (req, res) => {
-  console.log('attempting to get');
   db.getFlights(function (err, data) {
     if (err) {
       console.log('getting err');
@@ -23,21 +22,18 @@ app.get('/flights', (req, res) => {
     } else if (data === undefined) {
       res.status(404).end();
     } else {
-      console.log('got');
       res.status(200).send(data).end();
     }
   });
 });
 
 app.post('/flights', (req, res) => {
-  console.log('attempting to post');
   db.saveFlights(req.body, function (err) {
     if (err) {
       console.log('posting error');
       console.log(err);
       res.status(400).end();
     } else {
-      console.log('posted');
       res.status(201).end();
     }
   });

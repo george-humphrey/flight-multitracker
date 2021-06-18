@@ -5,8 +5,6 @@ function getFlights(callback = () => {}) {
     url: '/flights',
     type: 'GET',
     success: function (data) {
-      console.log('got data:');
-      console.log(data);
       callback(null, data);
     },
     error: function (err) {
@@ -18,14 +16,9 @@ function getFlights(callback = () => {}) {
 }
 
 function saveFlights(flights, callback = () => {}) {
-  console.log('flights: ');
-  console.log(flights);
   let flightList = flights.map((flight) => {
-    console.log('mapping');
-    console.log(flight);
     return { flightName: flight.flightName, flightCode: flight.flightCode };
   });
-  console.log(flightList);
 
   $.ajax({
     url: '/flights',

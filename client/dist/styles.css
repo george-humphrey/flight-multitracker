@@ -9,6 +9,7 @@ body {
 
 .flight {
   border: grey solid 1px;
+  background: white;
   height: 160px;
   width: auto;
   margin-bottom: 10px;
