@@ -23,7 +23,7 @@ const Flight = (props) => {
         airportName={props.flight.departure.airportName}
         airportCode={props.flight.departure.airportCode}
       />
-      <div className='flightArrow'>{'->'}</div>
+      <div className='flightArrow'>u</div>
       <Arrival
         listNumber={props.listNumber}
         time={props.flight.arrival.time}

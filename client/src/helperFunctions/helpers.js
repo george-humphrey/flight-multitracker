@@ -5,40 +5,40 @@ import db from './dbHelpers.js';
 import API_Key from '../API_KEY.js';
 
 function createNewFlight(flight) {
+  console.log('flight');
+  console.log(flight);
+
+  // flight times coming from API formatted incorrectly
+  // slicing to remove incorrect time zone info
   let depTime =
     flight.departure.actual === null
-      ? flight.departure.estimated
-      : flight.departure.actual;
+      ? flight.departure.estimated.slice(0, -6)
+      : flight.departure.actual.slice(0, -6);
   let arrTime =
-    flight.departure.actual === null
-      ? flight.departure.estimated
-      : flight.departure.actual;
+    flight.arrival.actual === null
+      ? flight.arrival.estimated.slice(0, -6)
+      : flight.arrival.actual.slice(0, -6);
+
+  console.log(`depTime: ${depTime}`);
+  console.log(`arrTime: ${arrTime}`);
 
   let newFlight = {
     flightName: 'New Flight',
     flightCode: flight.flight.iata,
+    airline: flight.airline.icao,
     status: flight.flight_status,
     delay: flight.departure.delay,
     departure: {
       airportCode: flight.departure.iata,
       airportName: flight.departure.airport,
-      time: new Date(depTime).toLocaleString('en-US', {
-        timeZone: flight.departure.timezone,
-      }),
+      time: new Date(depTime).toLocaleString('en-US'),
     },
     arrival: {
       airportCode: flight.arrival.iata,
       airportName: flight.arrival.airport,
-      time: new Date(arrTime).toLocaleString('en-US', {
-        timeZone: flight.arrival.timezone,
-      }),
+      time: new Date(arrTime).toLocaleString('en-US'),
     },
   };
-  console.log(`UTC Departure: ${depTime}`);
-  console.log(`Departure Time Zone: ${newFlight.departure.timezone}`);
-  // is the problem that I'm not getting them in UTC?
-  // try estimated: new Date(flight.departure.estimated).toLocaleString('en-US')
-  // without timeZone
 
   return newFlight;
 }
@@ -67,6 +67,15 @@ function setAirportColors(index, depCode, arrCode) {
   );
 }
 
+function setLogo(index) {
+  let airline = this.state.flights[index].airline;
+  console.log(airline);
+  $(`airlineLogo${index}`).css(
+    'background',
+    `url(../../client/dist/img/airline_logos/${airline}.png)`
+  );
+}
+
 function checkUniqueCode(code) {
   let flights = this.state.flights;
   flights.forEach((flight) => {
@@ -78,9 +87,9 @@ function checkUniqueCode(code) {
 }
 
 function addFlight() {
-  let code = $('#formEntry').value;
+  let code = $('#formFlightNumber').val();
 
-  if (this.checkUniqueCode(code)) {
+  if (!this.checkUniqueCode(code)) {
     $('#formStatus').html('Flight Already Listed');
   } else if (code === '') {
     $('#formStatus').html('Enter Flight Number');
@@ -102,6 +111,7 @@ function addFlight() {
         let arrCode = this.state.flights[index].arrival.airportCode;
 
         setAirportColors(index, depCode, arrCode);
+        this.setLogo(index);
       });
     });
   }
@@ -116,6 +126,7 @@ function deleteFlight(flightIndex) {
       let depCode = this.state.flights[index].departure.airportCode;
       let arrCode = this.state.flights[index].arrival.airportCode;
       setAirportColors(index, depCode, arrCode);
+      this.setLogo(index);
     });
   });
 }
@@ -152,6 +163,7 @@ function displayFlights(flightList) {
               let arrCode = flight.arrival.airportCode;
 
               setAirportColors(index, depCode, arrCode);
+              this.setLogo(index);
             });
           });
         });
@@ -176,6 +188,7 @@ module.exports = {
   deleteFlight,
   updateFlightName,
   setAirportColors,
+  setLogo,
   checkUniqueCode,
   loadFlights,
   displayFlights,

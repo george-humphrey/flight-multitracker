@@ -21,6 +21,8 @@ h3 {
   text-align: center;
 }
 
+/* FLIGHT LIST */
+
 #flightList {
   margin: 10px 5% 0;
   overflow: auto;
@@ -69,6 +71,7 @@ h3 {
 }
 
 .airlineLogo {
+  background: url('https://flightaware.com/images/airline_logos/90p/DAL.png');
   float: right;
   height: 20px;
   width: 20px;
@@ -108,6 +111,7 @@ h3 {
 
 .flightArrow {
   background: lightgrey;
+  font-family: wingdings3;
   float: left;
   height: 40px;
   width: 20%;
@@ -148,21 +152,39 @@ h3 {
   font-size: 16px;
 }
 
+/* FORM */
+
 #flightFormContainer {
   margin: 10px 10px 0 5%;
 }
 
 #addFlightForm {
-  width: 240px;
+  width: 400px;
   float: left;
+}
+
+#formSubmit {
+  font-size: 12px;
+  font-family: Verdana, sans-serif;
+  padding: 0 3px;
+  height: 25px;
+}
+
+#formFlightNumber {
+  font-size: 12px;
+  font-family: Verdana, sans-serif;
+  margin-left: 3px;
+  padding: 0;
+  height: 21px;
 }
 
 #formStatus {
   color: red;
   background-color: rgba(114, 38, 38, 0.666);
   font-size: 14px;
-  padding: 1px 5px;
-  margin: 2px;
+  padding: 3px 0px;
+  height: 17.8px;
+  margin: 1px;
   float: left;
   width: max-content;
 }

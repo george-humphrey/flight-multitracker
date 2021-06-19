@@ -16,6 +16,7 @@ class App extends React.Component {
     this.deleteFlight = helpers.deleteFlight.bind(this);
     this.updateFlightName = helpers.updateFlightName.bind(this);
     this.setAirportColors = helpers.setAirportColors.bind(this);
+    this.setLogo = helpers.setLogo.bind(this);
     this.loadFlights = helpers.loadFlights.bind(this);
     this.displayFlights = helpers.displayFlights.bind(this);
     this.checkUniqueCode = helpers.checkUniqueCode.bind(this);

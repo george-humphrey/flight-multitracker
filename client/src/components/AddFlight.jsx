@@ -3,14 +3,16 @@ import React from 'react';
 const AddFlight = (props) => {
   return (
     <div id='flightFormContainer'>
-      <form id='addFlightForm' action={props.addFlight()}>
-        <input type='submit' value='Add Flight'></input>
+      <div id='addFlightForm'>
+        <button type='submit' id='formSubmit' onClick={props.addFlight}>
+          Add Flight
+        </button>
         <input
           type='text'
-          id='formEntry'
-          name='formEntry'
+          id='formFlightNumber'
+          name='formFlightNumber'
           placeholder='Flight Number'></input>
-      </form>
+      </div>
       <div id='formStatus'></div>
     </div>
   );
