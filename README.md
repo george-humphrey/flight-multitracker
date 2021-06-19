@@ -46,3 +46,4 @@ Allows tracking of multiple flights from different airlines
 
 - Flight information provided by AviationStack (https://aviationstack.com/)
 - Airline Logos provided by the Airline Logo Scraper (https://github.com/calda/Airline-Logos)
+- Icon made by FlatIcon.com (https://www.flaticon.com/authors/pause08)
