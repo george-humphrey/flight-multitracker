@@ -63,49 +63,59 @@ function setAirportColors(index, depCode, arrCode) {
 
 function setLogo(index) {
   let airline = this.state.flights[index].airline;
-  console.log('trying to set logo');
-  console.log(index);
-  console.log(airline);
+
   $(`#airlineLogo${index}`).addClass(airline);
 }
 
 function checkUniqueCode(code) {
   let flights = this.state.flights;
-  flights.forEach((flight) => {
-    if (flight.flightCode === code) {
+  for (var i = 0; i < flights.length; i++) {
+    if (flights[i].flightCode === code) {
       return false;
     }
-  });
+  }
+
   return true;
 }
 
 function addFlight() {
   let code = $('#formFlightNumber').val();
+  console.log(code);
+  let statusMessage = '';
 
   if (!this.checkUniqueCode(code)) {
-    $('#formStatus').html('Flight Already Listed');
+    statusMessage = 'Flight Already Listed';
+    this.setState({ statusMessage });
+    // $('#formStatus').html('Flight Already Listed');
   } else if (code === '') {
-    $('#formStatus').html('Enter Flight Number');
+    statusMessage = 'Enter Flight Number';
+    this.setState({ statusMessage });
+    // $('#formStatus').html('Enter Flight Number');
   } else {
     api.findFlight(code, (err, flight) => {
       if (err) {
         console.log(err);
-        $('#formStatus').html("ERROR: Couldn't Add Flight");
+        statusMessage = "ERROR: Couldn't Add Flight";
+        this.setState({ statusMessage });
+        // $('#formStatus').html("ERROR: Couldn't Add Flight");
+      } else {
+        this.setState({ statusMessage });
+        // $('#formStatus').html('');
+
+        let newFlight = createNewFlight(flight);
+        let flights = this.state.flights;
+
+        flights.push(newFlight);
+        this.setState({ flights }, () => {
+          db.saveFlights(flights);
+          let index = this.state.flights.length - 1;
+          let depCode = this.state.flights[index].departure.airportCode;
+          let arrCode = this.state.flights[index].arrival.airportCode;
+
+          setAirportColors(index, depCode, arrCode);
+          this.setLogo(index);
+        });
       }
-
-      let newFlight = createNewFlight(flight);
-      let flights = this.state.flights;
-
-      flights.push(newFlight);
-      this.setState({ flights }, () => {
-        db.saveFlights(flights);
-        let index = this.state.flights.length - 1;
-        let depCode = this.state.flights[index].departure.airportCode;
-        let arrCode = this.state.flights[index].arrival.airportCode;
-
-        setAirportColors(index, depCode, arrCode);
-        this.setLogo(index);
-      });
     });
   }
 }
@@ -137,29 +147,35 @@ function displayFlights(flightList) {
   flightList.forEach((flight) => {
     let flightCode = flight.flightCode;
     let flightName = flight.flightName;
+    let statusMessage = '';
     api.findFlight(flightCode, (err, flight) => {
       if (err) {
-        $('#formStatus').html("ERROR: Can't Access Flight Information");
-      }
+        statusMessage = "ERROR: Can't Access Flight Information";
+        this.setState({ statusMessage });
+        // $('#formStatus').html("ERROR: Can't Access Flight Information");
+      } else {
+        this.setState({ statusMessage });
+        // $('#formStatus').html('');
 
-      let newFlight = createNewFlight(flight);
-      newFlight.flightName = flightName;
+        let newFlight = createNewFlight(flight);
+        newFlight.flightName = flightName;
 
-      let flights = this.state.flights;
+        let flights = this.state.flights;
+        flights.push(newFlight);
 
-      flights.push(newFlight);
-      if (flights.length === flightList.length) {
-        this.setState({ flights }, () => {
-          db.saveFlights(flights, () => {
-            flights.forEach((flight, index) => {
-              let depCode = flight.departure.airportCode;
-              let arrCode = flight.arrival.airportCode;
+        if (flights.length === flightList.length) {
+          this.setState({ flights }, () => {
+            db.saveFlights(flights, () => {
+              flights.forEach((flight, index) => {
+                let depCode = flight.departure.airportCode;
+                let arrCode = flight.arrival.airportCode;
 
-              setAirportColors(index, depCode, arrCode);
-              this.setLogo(index);
+                setAirportColors(index, depCode, arrCode);
+                this.setLogo(index);
+              });
             });
           });
-        });
+        }
       }
     });
   });

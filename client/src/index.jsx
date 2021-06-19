@@ -10,6 +10,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       flights: [],
+      statusMessage: '',
     };
 
     this.addFlight = helpers.addFlight.bind(this);
@@ -33,6 +34,7 @@ class App extends React.Component {
         <h3>A Flight Multi-Tracker</h3>
         <Flights
           flights={this.state.flights}
+          statusMessage={this.state.statusMessage}
           addFlight={this.addFlight}
           deleteFlight={this.deleteFlight}
           updateFlightName={this.updateFlightName}
