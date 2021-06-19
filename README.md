@@ -9,12 +9,12 @@ Allows tracking of multiple flights from different airlines
    $ npm install
    ```
 2. API Setup
-   a. Get an API Key from _aviationstack.com_
-   b. Save key in **client/src/API_KEY_Example.js**
-   c. Rename **API_KEY_Example.js** to **API_KEY.js**
+   1. Get an API Key from _aviationstack.com_
+   2. Save key in **client/src/API_KEY_Example.js**
+   3. Rename **API_KEY_Example.js** to **API_KEY.js**
 3. Database Setup
-   a. Insert correct MySQL credentials in **database/config_example.js**
-   b. Rename **config_exampl.js** to **config.js**
+   1. Insert correct MySQL credentials in **database/config_example.js**
+   2. Rename **config_exampl.js** to **config.js**
    ```shell
    $ npm run db
    ```
