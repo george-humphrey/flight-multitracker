@@ -18,11 +18,8 @@ Allows tracking of multiple flights from different airlines
    `shell $ npm run db `
 4. In the terminal run:
    ```shell
-   $ npm run server
-   ```
-   in seperate terminal window run:
-   ```shell
    $ npm run client
+   $ npm run server
    ```
 5. Application runs on port :3000
 
