@@ -3,6 +3,7 @@
 Allows tracking of multiple flights from different airlines
 
 ## Setup
+
 1. Clone code from GitHub
    ```shell
    $ npm install
@@ -44,5 +45,5 @@ Allows tracking of multiple flights from different airlines
 
 ## Attributions
 
-Flight information provided by AviationStack (https://aviationstack.com/)
-Airline Logos provided by the Airline Logo Scraper (https://github.com/calda/Airline-Logos)
+- Flight information provided by AviationStack (https://aviationstack.com/)
+- Airline Logos provided by the Airline Logo Scraper (https://github.com/calda/Airline-Logos)

@@ -5,9 +5,6 @@ import db from './dbHelpers.js';
 import API_Key from '../API_KEY.js';
 
 function createNewFlight(flight) {
-  console.log('flight');
-  console.log(flight);
-
   // flight times coming from API formatted incorrectly
   // slicing to remove incorrect time zone info
   let depTime =
@@ -18,9 +15,6 @@ function createNewFlight(flight) {
     flight.arrival.actual === null
       ? flight.arrival.estimated.slice(0, -6)
       : flight.arrival.actual.slice(0, -6);
-
-  console.log(`depTime: ${depTime}`);
-  console.log(`arrTime: ${arrTime}`);
 
   let newFlight = {
     flightName: 'New Flight',
@@ -69,11 +63,10 @@ function setAirportColors(index, depCode, arrCode) {
 
 function setLogo(index) {
   let airline = this.state.flights[index].airline;
+  console.log('trying to set logo');
+  console.log(index);
   console.log(airline);
-  $(`airlineLogo${index}`).css(
-    'background',
-    `url(../../client/dist/img/airline_logos/${airline}.png)`
-  );
+  $(`#airlineLogo${index}`).addClass(airline);
 }
 
 function checkUniqueCode(code) {

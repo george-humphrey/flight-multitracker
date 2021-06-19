@@ -71,12 +71,12 @@ h3 {
 }
 
 .airlineLogo {
-  background: url('https://flightaware.com/images/airline_logos/90p/DAL.png');
+  background-repeat: no-repeat;
+  background-size: cover;
   float: right;
-  height: 20px;
-  width: 20px;
-  padding: 3px;
-  font-size: 18px;
+  margin: 2px;
+  height: 26px;
+  width: 26px;
 }
 
 .flightCode {
