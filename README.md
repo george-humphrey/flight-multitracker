@@ -15,7 +15,9 @@ Allows tracking of multiple flights from different airlines
 3. Database Setup
    a. Insert correct MySQL credentials in **database/config_example.js**
    b. Rename **config_exampl.js** to **config.js**
-   `shell $ npm run db `
+   ```shell
+   $ npm run db
+   ```
 4. In the terminal run:
    ```shell
    $ npm run client
